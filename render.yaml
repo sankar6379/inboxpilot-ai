@@ -1,6 +1,6 @@
 services:
   # Database Service
-  - type: db
+  - type: database
     name: inboxpilot-postgres
     databaseName: inboxpilot
     user: inboxpilot
