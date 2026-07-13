@@ -3,8 +3,7 @@ services:
     name: inboxpilot-app
     runtime: docker
     plan: free
-    dockerfilePath: Dockerfile
-    healthCheckPath: /api/health
+    dockerfilePath: ./Dockerfile
 
     envVars:
       - key: SPRING_DATASOURCE_URL
