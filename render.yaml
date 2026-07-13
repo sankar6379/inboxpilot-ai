@@ -1,0 +1,30 @@
+services:
+  # Database Service
+  - type: db
+    name: inboxpilot-postgres
+    databaseName: inboxpilot
+    user: inboxpilot
+    plan: free
+
+  # Web Service running the JAR
+  - type: web
+    name: inboxpilot-app
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://${RENDER_INSTANCE_IP}:5432/inboxpilot
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: inboxpilot-postgres
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: inboxpilot-postgres
+          property: password
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
